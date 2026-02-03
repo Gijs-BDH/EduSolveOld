@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\r.westrik\.nuget\packages\clipper2\1.2.2\contentFiles\any\netstandard2.0\Clipper2.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BDH.Revit.Shared" Version="3.4.4" />
+    <PackageReference Include="Clipper2" Version="1.2.2" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,109 @@
+<div class="container" >
+
+    <h1>
+        Mijn Projecten
+    </h1>
+    <h2>Eigendom van {{activeCompany$ | async}}</h2>
+    <p>
+        Op deze pagina vind u zowel Urban-Solve- als Edu-Solve projecten.
+        U kunt hier uw eigen, en de projecten gedeeld binnen uw organisatie vinden.
+    </p>
+
+    <h1>Urban-Solve</h1>
+    <table mat-table [dataSource]="urbanSolveDataSource">
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsUrbanSolve"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsUrbanSolve;"></tr>
+
+        <ng-container matColumnDef="createdBy">
+            <th mat-header-cell *matHeaderCellDef> Aangemaakt door </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+            <th mat-header-cell *matHeaderCellDef> Aangemaakt Op </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Naam </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="goto">
+            <th mat-header-cell *matHeaderCellDef> Bewerk </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="gotoUrbanSolveProject(element)"> 
+                    <mat-icon>edit</mat-icon> 
+                </button> 
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="versions">
+            <th mat-header-cell *matHeaderCellDef> Bewerk Versie </th>
+            <td mat-cell *matCellDef="let element"> 
+
+                <button mat-icon-button [matMenuTriggerFor]="menu"> 
+                    <mat-icon>edit</mat-icon> 
+                </button> 
+                <mat-menu #menu>
+                    <button *ngFor="let version of element.versions" mat-menu-item (click)="gotoUrbanSolveProjectVersion(element, version)" matTooltip="?projectId={{element.id}}&versionId={{version.id}}" [matTooltipPosition]="'right'"> 
+                        {{version.name}}
+                    </button> 
+                </mat-menu>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Verwijder </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="deleteUrbanSolveProject(element)"> 
+                    <mat-icon>delete</mat-icon> 
+                </button> 
+            </td>
+        </ng-container>
+
+    </table>
+
+    <h1>Edu-Solve</h1>
+    <table mat-table [dataSource]="eduSolveDataSource">
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsEduSolve"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsEduSolve;"></tr>
+
+        <ng-container matColumnDef="createdBy">
+            <th mat-header-cell *matHeaderCellDef> Aangemaakt door </th>
+            <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdDate">
+            <th mat-header-cell *matHeaderCellDef> Aangemaakt Op </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Naam </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="goto">
+            <th mat-header-cell *matHeaderCellDef> Bewerk </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="gotoEduSolveProject(element)"> 
+                    <mat-icon>edit</mat-icon> 
+                </button> 
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Verwijder </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button mat-icon-button (click)="deleteEduSolveProject(element)"> 
+                    <mat-icon>delete</mat-icon> 
+                </button> 
+            </td>
+        </ng-container>
+
+    </table>
+  
+</div>

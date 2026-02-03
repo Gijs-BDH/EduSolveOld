@@ -1,0 +1,20 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        Bulk solver resultaten
+    </mat-expansion-panel-header>
+    <mat-spinner *ngIf="(loading$ | async) else chart" [diameter]="25">
+
+    </mat-spinner>
+    
+</mat-expansion-panel>
+
+<ng-template #chart>
+  
+    <div *ngIf="(results$ | async)?.length as number">
+        {{number}} resultaten gevonden.
+        <button mat-raised-button color="warn" (click)="cleanup()">Clean</button>
+        <button mat-raised-button (click)="explore()">Ontdek</button>
+    </div>
+
+</ng-template>
+

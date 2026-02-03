@@ -1,0 +1,40 @@
+<mat-expansion-panel *ngIf="shell.selectedMass" [expanded]="shell.selectedMass">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Geselecteerde massa
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+        
+    <div *ngIf="shell.selectedMass else elseBlock" style="width:400px">
+
+        <mat-form-field class="form-element-container">
+            <mat-label>Typologie van massa:</mat-label>
+            <mat-select [(ngModel)]="shell.selectedMass.typology" (ngModelChange)="typologyChange()">
+                <mat-option *ngFor="let concept of publicConcepten$ | async" [value]="concept">{{concept.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+
+        <mat-form-field class="form-element-container">
+            <mat-label>Breedte</mat-label>
+            <input matInput type="number" [(ngModel)]="shell.selectedMass.width" (ngModelChange)="change()">
+        </mat-form-field>
+
+        <mat-form-field class="form-element-container"> 
+            <mat-label>Diepte</mat-label>
+            <input matInput type="number" [(ngModel)]="shell.selectedMass.depth" (ngModelChange)="change()">
+        </mat-form-field>
+
+        <mat-form-field class="form-element-container">
+            <mat-label>Hoogte</mat-label>
+            <input matInput type="number" [(ngModel)]="shell.selectedMass.height" (ngModelChange)="change()">
+        </mat-form-field>
+    </div>
+
+</mat-expansion-panel>
+
+
+
+<ng-template #elseBlock>
+    <p>Er is geen massa geselecteerd.</p>
+</ng-template>

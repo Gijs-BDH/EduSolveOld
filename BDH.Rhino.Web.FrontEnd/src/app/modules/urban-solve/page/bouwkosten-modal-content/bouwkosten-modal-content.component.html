@@ -1,0 +1,121 @@
+<mat-dialog-content>
+    <h2 class="modal-title" id="modal-basic-title">Bouwkosten update</h2>
+
+    <mat-accordion [multi]="true">
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Bouwconcepten</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Bouwconcept</th>
+                            <th>Stuks</th>
+                            <th>BVO / Stuk</th>
+                            <th>BVO</th>
+                            <th>Productiekosten / Stuk</th>
+                            <th>Productiekosten</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody *ngIf="rapport.conceptSummaries.length">
+                        <tr *ngFor="let typology of rapport.conceptSummaries">
+                            <td>{{typology.name}}</td>
+                            <td>{{typology.units}}</td>
+                            <td>{{typology.bvoPerUnit}}</td>
+                            <td>{{typology.bvo}}</td>
+                            <td>{{typology.productiekostenPerUnit}}</td>
+                            <td>{{typology.productiekosten}}</td>
+                        </tr>
+                        <tr>
+                            <td>Som: </td>
+                            <td></td>
+                            <td></td>
+                            <td>{{rapport.somConceptBvo}}</td>
+                            <td></td>
+                            <td>{{rapport.somConceptProductieKosten}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Bouwkosten Typologieën</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Typologie</th>
+                            <th>Volume</th>
+                            <th>Volume / BVO</th>
+                            <th>BVO</th>
+                            <th>Bouwkosten / BVO</th>
+                            <th>Bouwkosten</th>
+                            <th>Invloed EPC / BVO</th>
+                            <th>Invloed BENG / BVO</th>
+                            <th>Totaal</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody *ngIf="rapport.typologySummaries.length">
+                        <tr *ngFor="let typology of rapport.typologySummaries">
+                            <td>{{typology.name}}</td>
+                            <td>{{typology.volume}}</td>
+                            <td>{{typology.volumePerBvo}}</td>
+                            <td>{{typology.bvo}}</td>
+                            <td>{{typology.bouwkostenPerBvo}}</td>
+                            <td>{{typology.bouwkosten}}</td>
+                            <td>{{typology.invloedEpc}}</td>
+                            <td>{{typology.invloedBeng}}</td>
+                            <td>{{typology.totaal}}</td>
+                        </tr>
+                        <tr>
+                            <td>Som: </td>
+                            <td></td>
+                            <td></td>
+                            <td>{{rapport.somTypologyBvo}}</td>
+                            <td></td>
+                            <td>{{rapport.somTypologyBouwkosten}}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{rapport.somTypologyTotaal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Samenvatting</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Behaald BVO</th>
+                            <th>Kosten Bouw & Productie</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>   
+                        <tr>
+                            <td>{{rapport.totaalBvo}}</td>
+                            <td>{{rapport.totaalUitgaven}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+       
+    </mat-accordion>
+    <div class="modal-footer">
+        <button mat-button (click)="close()">Save</button>
+    </div>
+</mat-dialog-content>

@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+    <span style="width:100%">
+        <span>Solve | Een product van BDH | Productivity </span>
+
+        <div style="float: right;">
+            <span >
+                <mat-slide-toggle [checked]="isDarkTheme$ | async" (change)="toggleTheme($event.checked)">Dark Mode
+                </mat-slide-toggle>
+            </span>
+       
+            
+            <button *ngIf="this.auth.isAuthenticated$ | async" mat-button style="width:200px" (click)="logOut()">
+                <span>Uitloggen</span>
+            </button>
+            <button *ngIf="!(this.auth.isAuthenticated$ | async)" mat-button style="width:200px" (click)="login()">
+                <span>Inloggen</span>
+            </button>
+        </div>
+    </span>
+</mat-toolbar>

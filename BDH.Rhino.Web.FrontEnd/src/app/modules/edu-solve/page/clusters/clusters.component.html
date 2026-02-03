@@ -1,0 +1,83 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        Clusters
+    </mat-expansion-panel-header>
+
+    <button mat-button [matMenuTriggerFor]="menu">Presets</button>
+
+    <button mat-raised-button (click)="connections()">Connecties</button>
+
+    <mat-menu #menu="matMenu">
+        <button *ngFor="let preset of clusterTemplates" mat-menu-item (click)="setPreset(preset)">{{preset.name}}</button>
+    </mat-menu>
+
+    <mat-accordion>
+
+        <mat-expansion-panel *ngFor="let cluster of clusters">
+
+            <mat-expansion-panel-header class="right-aligned-header">
+
+                <mat-panel-title>
+                    {{cluster.name}}
+                </mat-panel-title>
+
+                <mat-panel-description>
+                    <button mat-icon-button color="warn" (click)="remove($event, cluster)">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+
+                    <button mat-icon-button (click)="toggleVisible($event, cluster)">
+                        <mat-icon *ngIf="cluster.visible">remove_red_eye</mat-icon>
+                        <mat-icon *ngIf="!cluster.visible">panorama_fish_eye</mat-icon>
+                    </button>
+
+                    <input matInput type="color" [(ngModel)]="cluster.color" (click)="colorClick($event)"
+                        (ngModelChange)="rebuild()" style="width:20px; margin-right:20px">
+                </mat-panel-description>
+
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+                <mat-label>BVO</mat-label>
+                <input matInput [(ngModel)]="cluster.bvo">
+            </mat-form-field>
+
+            <p>Aantal cellen: {{math.ceil(cluster.bvo / (grid.gridSize * grid.gridSizeY))}}</p>
+
+            <div>
+                <label>Verdieping: </label>
+                <label>{{cluster.lowestLevel}} tot {{cluster.highestLevel}}</label>
+            </div>
+            <mat-slider min="0" max="10">
+                <input matSliderStartThumb [(ngModel)]="cluster.lowestLevel">
+                <input matSliderEndThumb [(ngModel)]="cluster.highestLevel">
+            </mat-slider>
+
+            <div>
+                <label>Verdiepingshoogte: </label>
+                <label>{{cluster.levels}}</label>
+            </div>
+            <mat-slider [max]="3" [min]="1" [step]="1" [showTickMarks]="true">
+                <input matSliderThumb [(ngModel)]="cluster.levels">
+            </mat-slider>
+
+            <button mat-raised-button (click)="addFixedPoint(cluster)" [disabled]="cluster.lowestLevel> 0">+ Fixed Point</button>
+            <button mat-raised-button (click)="drawShape(cluster)" [disabled]="cluster.lowestLevel> 0">Teken vorm</button>
+            <button mat-raised-button [matMenuTriggerFor]="menu">Connecties</button>
+
+            <mat-menu #menu xPosition="before">
+                <mat-selection-list [(ngModel)]="cluster.connections" [compareWith]="compareFn" (click)="$event.stopPropagation()">
+                    <mat-list-option *ngFor="let cluster of clusters" [value]="cluster.name">
+                        {{cluster.name}}
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-menu>
+            
+
+        </mat-expansion-panel>
+
+        <button mat-raised-button (click)="add()" style="width:100%">+ Toevoegen</button>
+
+    </mat-accordion>
+
+</mat-expansion-panel>

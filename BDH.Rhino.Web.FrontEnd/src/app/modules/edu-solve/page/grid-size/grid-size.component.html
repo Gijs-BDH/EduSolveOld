@@ -1,0 +1,78 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>Grid</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
+                <mat-card-title>
+                    Grid Bouwconcept:
+                </mat-card-title>
+            </mat-card-title-group>
+
+            <button mat-icon-button (click)="toggleGridConcept()">
+                <mat-icon>{{this.viewer.gridConcept ? "remove_red_eye" : "panorama_fish_eye"}}</mat-icon>
+            </button>
+            
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <label>Overspanning (x): {{((bouwconcept.selectedProduct)?.spanLength ?? 0) / 1000}}m</label><br>
+                <label>Breedte (y): {{((bouwconcept.selectedProduct)?.spanWidth ?? 0) / 1000}}m</label>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
+                <mat-card-title>
+                    Grid Programma:
+                </mat-card-title>
+            </mat-card-title-group>
+            <button mat-icon-button (click)="toggleGridMain()">
+                <mat-icon >{{this.viewer.gridProgramma ? "remove_red_eye" : "panorama_fish_eye"}}</mat-icon>
+            </button>
+            
+        </mat-card-header>
+        <mat-card-content>
+            <div>
+                <label>Minimale grid maat {{smallestGridSize}}m</label>
+            </div>
+            <mat-slider [max]="28.8" [min]="1.8" [step]="1.8" [showTickMarks]="true">
+                <input matSliderThumb [(ngModel)]="smallestGridSize">
+            </mat-slider>
+    
+            <p>Concept configuratie per tegel: {{necessaryTileSpanX}} bij {{necessaryTileSpanY}}</p>
+            <p>Exacte tegel maat: {{(grid.gridSize).toFixed(2)}} bij {{(grid.gridSizeY).toFixed(2)}}</p>
+        </mat-card-content>
+    </mat-card>
+
+    <div>
+        <label>Rotatie: </label>
+        <label>{{(this.grid.gridRotation * 57.2957795).toFixed(1)}} graden</label>
+    </div>
+    <mat-slider [max]="1.5705" [min]="0" [step]="0.01" [showTickMarks]="false">
+        <input matSliderThumb [(ngModel)]="gridRotatie">
+    </mat-slider>
+
+    <div>
+        <label>Verschuiving: </label>
+        <label>{{(this.grid.gridShift / (grid.gridSize) * 100).toFixed(2)}}%</label>
+    </div>
+    <mat-slider [max]="grid.gridSize" [min]="0" [step]="0.01" [showTickMarks]="false">
+        <input matSliderThumb [(ngModel)]="gridShift">
+    </mat-slider>
+
+    <div>
+        <label>Verdiepingshoogte: </label>
+        <label>{{verdiepingsHoogte}}m</label>
+    </div>
+    <mat-slider [max]="5.6" [min]="2.8" [step]="0.1" [showTickMarks]="false">
+        <input matSliderThumb [(ngModel)]="verdiepingsHoogte">
+    </mat-slider>
+
+    <button mat-button (click)="addObstacle()">+ Obstakel</button>
+
+</mat-expansion-panel>

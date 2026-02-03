@@ -1,0 +1,29 @@
+<mat-dialog-content>
+    <mat-dialog-actions>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <h3>Gebruikers informatie:</h3>
+
+            <mat-form-field>
+                <mat-label>
+                    Emailadres:
+                </mat-label>
+                <input matInput placeholder="email@email.com" formControlName="email" required/>
+            </mat-form-field>    
+
+            <mat-form-field>
+                <mat-label>
+                    Bedrijf:
+                </mat-label>
+                <input matInput placeholder="Buro de Haan" formControlName="company" required/>
+            </mat-form-field>  
+
+            <label>
+                Is Administrator:
+                <input type="checkbox" formControlName="isAdmin" id="acceptTerms" class="form-check-input" />
+            </label>
+
+            <button mat-stroked-button>Submit</button>
+        </form>
+    </mat-dialog-actions>
+    
+</mat-dialog-content>

@@ -1,0 +1,27 @@
+<mat-expansion-panel >
+    <mat-expansion-panel-header>
+        <mat-panel-title>Bouwconcept</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-form-field style="display: block">
+        <mat-label>Manufacturer</mat-label>
+        <mat-select [value]="selectedManufacturer" (selectionChange)="manufacturerChanged($event)">
+            <mat-option *ngFor="let manufacturer of config.manufacturers" [value]="manufacturer">
+                {{manufacturer.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+   
+    <mat-form-field *ngIf="selectedManufacturer" style="display: block">
+        <mat-label>Product</mat-label>
+        <mat-select [value]="config.selectedProduct" (selectionChange)="productChanged($event)">
+            <mat-option *ngFor="let product of products" [value]="product">
+                {{product.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <p>Overspannings lengte: {{config.selectedProduct?.spanLength}}mm</p>
+    <p>Element breedte: {{config.selectedProduct?.spanWidth}}mm</p>
+
+</mat-expansion-panel>  

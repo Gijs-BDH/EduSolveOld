@@ -1,0 +1,17 @@
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Uw project samenvatting
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <p *ngFor="let i of info().conceptSummaries"> {{i.concept.name}} : {{i.number}}</p>
+    <p *ngFor="let i of info().typologySummaries"> {{i.typology.name}} : {{i.volume}}m3</p>
+
+    <button mat-button (click)="fetchReport()">
+        Bouwkosten
+    </button>
+    <button mat-button (click)="fetchProfit()">
+        Grondwaarde
+    </button>
+</mat-expansion-panel>

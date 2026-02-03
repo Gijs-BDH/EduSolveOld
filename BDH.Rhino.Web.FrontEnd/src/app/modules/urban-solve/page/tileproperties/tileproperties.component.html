@@ -1,0 +1,54 @@
+<mat-expansion-panel *ngIf="shell.selectedTile" [expanded]="shell.selectedTile">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Geselecteerde polygoon
+        </mat-panel-title>
+    </mat-expansion-panel-header >
+  
+    <div style="width:400px">
+
+        <div class="form-field-default">
+            <button mat-button color="warn" style="width:100%" (click)="removeContents()">Verwijder geometrie op vlak</button>
+        </div>
+
+        <mat-accordion>
+
+
+            <app-catalog-solver>
+                
+            </app-catalog-solver>
+    
+            <mat-expansion-panel>
+    
+                <mat-expansion-panel-header>
+                    Koppel School Project
+                </mat-expansion-panel-header>
+    
+                <button type="button" mat-raised-button (click)="exportToSchoolProject()" [disabled]="busy">
+                    <i class="fa-solid fa-trowel-bricks"></i> Export naar School Project
+                </button>
+
+                <mat-accordion>
+                    <mat-expansion-panel *ngFor="let schoolProject of schoolProjectsCached">
+    
+                        <mat-expansion-panel-header>
+                            {{schoolProject.name}}
+                        </mat-expansion-panel-header>
+                        
+                        <button mat-raised-button *ngFor="let version of schoolProject.versies" (click)="importSchoolProject(schoolProject, version.id)">
+                            {{version.name}}
+                        </button>
+    
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+        
+    </div>
+
+</mat-expansion-panel>
+
+<ng-template #notile>
+    <p>Er is geen polygoon geselecteerd</p>
+</ng-template>

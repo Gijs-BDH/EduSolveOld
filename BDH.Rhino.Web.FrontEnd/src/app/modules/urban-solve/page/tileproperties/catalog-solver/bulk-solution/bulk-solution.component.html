@@ -1,0 +1,62 @@
+<mat-dialog-content>
+    <div id="example" class="parcoords" style="width:100%; height:300px;">
+    
+    </div>
+
+    <h1>
+        Filter Resultaten
+    </h1>
+
+    <div class="mat-elevation-z8" style="width:100%;">
+        <table mat-table [dataSource]="dataSource" matSort >
+
+            <ng-container matColumnDef="seed">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> SEED </th>
+                <td mat-cell *matCellDef="let row"> {{row.seed}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apply">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let row"> <button mat-icon-button
+                        (click)="click(row)"><mat-icon>arrow_downward</mat-icon></button> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numberOfHouses">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> numberOfHouses </th>
+                <td mat-cell *matCellDef="let row"> {{row.numberOfHouses}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="lineLengths">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> lineLengths </th>
+                <td mat-cell *matCellDef="let row"> {{row.lineLengths}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="glassArea">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> glassArea </th>
+                <td mat-cell *matCellDef="let row"> {{row.glassArea}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bvo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> bvo </th>
+                <td mat-cell *matCellDef="let row"> {{row.bvo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="productieKosten">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> productieKosten </th>
+                <td mat-cell *matCellDef="let row"> {{row.productieKosten}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="volume">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> volume </th>
+                <td mat-cell *matCellDef="let row"> {{row.volume}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+</mat-dialog-content>

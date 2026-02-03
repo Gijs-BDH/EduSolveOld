@@ -1,0 +1,223 @@
+<mat-accordion>
+
+    <mat-expansion-panel *ngIf="data.configuration?.catalog">
+
+        <mat-expansion-panel-header>
+            Constraints
+        </mat-expansion-panel-header>
+
+        <mat-form-field style="display:block">
+            <mat-label>kolommen van</mat-label>
+            <input matInput type="number" [(ngModel)]="data.configuration!.catalog.allowedColumnsFrom">
+        </mat-form-field>
+        <mat-form-field style="display:block">
+            <mat-label>kolommen tot</mat-label>
+            <input matInput type="number" [(ngModel)]="data.configuration!.catalog.allowedColumnsTo">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Verdiepingen van</mat-label>
+            <input matInput type="number" [(ngModel)]="data.configuration!.catalog.allowedRowsFrom">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Verdiepingen tot</mat-label>
+            <input matInput type="number" [(ngModel)]="data.configuration!.catalog.allowedRowsTo">
+        </mat-form-field>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+
+        <mat-expansion-panel-header>
+            Configuratie
+        </mat-expansion-panel-header>
+
+        <mat-accordion>
+
+
+            <button mat-stroked-button (click)="allesMag()">Reset</button>
+
+            <div *ngIf="data.configuration?.conceptConfigurations?.length">
+
+                <mat-expansion-panel *ngFor="let configuration of data.configuration!.conceptConfigurations">
+
+                    <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                            {{configuration.name}}
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <div style="width:400px">
+
+                        <mat-form-field style="width:100%; display:block">
+                            <label>
+                                Aantal kolommen
+                            </label>
+                            <input matInput type="number" [(ngModel)]="configuration.columnSpan" />
+                        </mat-form-field>
+                        <mat-form-field style="width:100%">
+                            <label>
+                                Aantal rijen
+                            </label>
+                            <input matInput type="number" [(ngModel)]="configuration.rowSpan" />
+                        </mat-form-field>
+
+                        <button style="width:100%; display:block" mat-button color="accent"
+                            [matMenuTriggerFor]="menu">Preset</button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-raised-button (click)="allesMagConf(configuration)">Alles mag</button>
+                            <button mat-raised-button (click)="torentje(configuration)">Torentje</button>
+                            <button mat-raised-button (click)="torentjeStrick(configuration)">Torentje (strict)</button>
+                            <button mat-raised-button (click)="plint(configuration)">Plint</button>
+                            <button mat-raised-button (click)="optopper(configuration)">Optopper</button>
+                            <button mat-raised-button (click)="kopLinks(configuration)">Kop links</button>
+                            <button mat-raised-button (click)="kopRechts(configuration)">Kop rechts</button>
+                            <button mat-raised-button (click)="pixel(configuration)">Pixel</button>
+                        </mat-menu>
+
+                        <mat-accordion style="width:100%;">
+
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    Toegestaan boven dit concept:
+                                </mat-expansion-panel-header>
+                                <mat-slide-toggle [(ngModel)]="configuration.aboveIsIndifferent">maakt niet
+                                    uit</mat-slide-toggle>
+
+                                <div *ngIf="!configuration.aboveIsIndifferent">
+                                    <button mat-stroked-button (click)="alles(configuration, 'boven')">Alles</button>
+                                    <button mat-stroked-button (click)="alleenZelf(configuration, 'boven')">Alleen
+                                        zelf</button>
+                                    <mat-checkbox [(ngModel)]="configuration.emptySpaceAllowedAbove">
+                                        Lucht
+                                    </mat-checkbox>
+                                    <mat-selection-list [(ngModel)]="configuration.allowedAbove">
+                                        <mat-list-option *ngFor="let concept of shell.conceptsInCatalog"
+                                            [value]="concept">
+                                            {{concept.name}}
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                </div>
+
+                            </mat-expansion-panel>
+
+
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    Toegestaan onder dit concept:
+                                </mat-expansion-panel-header>
+                                <mat-slide-toggle [(ngModel)]="configuration.belowIsIndifferent">maakt niet
+                                    uit</mat-slide-toggle>
+
+                                <div *ngIf="!configuration.belowIsIndifferent">
+                                    <button mat-stroked-button (click)="alles(configuration, 'onder')">Alles</button>
+                                    <button mat-stroked-button (click)="alleenZelf(configuration, 'onder')">Alleen
+                                        zelf</button>
+                                    <mat-checkbox [(ngModel)]="configuration.allowedOnLowestLevel">
+                                        Grond
+                                    </mat-checkbox>
+                                    <mat-selection-list [(ngModel)]="configuration.allowedBelow">
+                                        <mat-list-option *ngFor="let concept of shell.conceptsInCatalog"
+                                            [value]="concept">
+                                            {{concept.name}}
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                </div>
+
+                            </mat-expansion-panel>
+
+
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    Toegestaan links van dit concept:
+                                </mat-expansion-panel-header>
+                                <mat-slide-toggle [(ngModel)]="configuration.leftIsIndifferent">maakt niet
+                                    uit</mat-slide-toggle>
+
+                                <div *ngIf="!configuration.leftIsIndifferent">
+                                    <button mat-stroked-button (click)="alles(configuration, 'links')">Alles</button>
+                                    <button mat-stroked-button (click)="alleenZelf(configuration, 'links')">Alleen
+                                        zelf</button>
+                                    <mat-checkbox [(ngModel)]="configuration.emptySpaceAllowedLeft">
+                                        Lucht
+                                    </mat-checkbox>
+                                    <mat-selection-list [(ngModel)]="configuration.allowedLeft">
+                                        <mat-list-option *ngFor="let concept of shell.conceptsInCatalog"
+                                            [value]="concept">
+                                            {{concept.name}}
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                </div>
+
+                            </mat-expansion-panel>
+
+
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    Toegestaan rechts van dit concept:
+                                </mat-expansion-panel-header>
+                                <mat-slide-toggle [(ngModel)]="configuration.belowIsIndifferent">maakt niet
+                                    uit</mat-slide-toggle>
+
+                                <div *ngIf="!configuration.belowIsIndifferent">
+                                    <button mat-stroked-button (click)="alles(configuration, 'rechts')">Alles</button>
+                                    <button mat-stroked-button (click)="alleenZelf(configuration, 'rechts')">Alleen
+                                        zelf</button>
+                                    <mat-checkbox [(ngModel)]="configuration.emptySpaceAllowedRight">
+                                        Lucht
+                                    </mat-checkbox>
+                                    <mat-selection-list [(ngModel)]="configuration.allowedRight">
+                                        <mat-list-option *ngFor="let concept of shell.conceptsInCatalog"
+                                            [value]="concept">
+                                            {{concept.name}}
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                </div>
+
+                            </mat-expansion-panel>
+
+                        </mat-accordion>
+
+                    </div>
+
+                </mat-expansion-panel>
+
+
+            </div>
+
+
+        </mat-accordion>
+
+    </mat-expansion-panel>
+
+
+
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            Solver
+        </mat-expansion-panel-header>
+
+        <mat-label style="display:block">kolommen: {{data.numberOfColumns}}</mat-label>
+        <mat-slider style="display:block">
+            <input matSliderThumb
+                [(ngModel)]="data.numberOfColumns" 
+                (change)="solve()"
+                [min]="1"
+                [max]="100">
+        </mat-slider>
+
+        <mat-label style="display:block">Verdiepingen: {{data.numberOfLevelsFrom}} tot {{data.numberOfLevelsTo}}</mat-label>
+        <mat-slider *ngIf="data.configuration" 
+            [min]="data.configuration.catalog.allowedRowsFrom ?? 0" 
+            [max]="data.configuration.catalog.allowedRowsTo ?? 10">
+            <input [(ngModel)]="data.numberOfLevelsFrom" matSliderStartThumb>
+            <input [(ngModel)]="data.numberOfLevelsTo" matSliderEndThumb>
+        </mat-slider>
+        
+
+
+        <button mat-raised-button color="accent" (click)="solve()">Solve</button>
+        <button mat-raised-button (click)="apply()">Save to server</button>
+    </mat-expansion-panel>
+</mat-accordion>

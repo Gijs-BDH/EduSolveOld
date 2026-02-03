@@ -1,0 +1,63 @@
+<mat-dialog-content>
+    <h2>Bouwconcept Viewer</h2>
+    <h4>{{data.name}}</h4>
+    <h5>Door: {{data.createdBy}}</h5>
+    <h5>Organisatie: {{data.company}}</h5>
+    <div class="row">
+        <div class="col-6" id="viewerCanvas" style="height:550px">
+
+        </div>
+        <div  class="col-6" style="padding-left: 50px;">
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>
+                        Name:
+                    </span>
+                    <span matListItemLine>
+                        {{data.name}}
+                    </span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>
+                        BVO per Unit (m2):
+                    </span>
+                    <span matListItemLine>
+                        {{data.bvoPerUnit}}
+                    </span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>
+                        Volume per Unit (m3):
+                    </span>
+                    <span matListItemLine>
+                        {{data.m3PerUnit}}
+                    </span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>
+                        Woningen per Unit:
+                    </span>
+                    <span matListItemLine>
+                        {{data.woningenPerUnit}}
+                    </span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>
+                        Productieprijs per Unit:
+                    </span>
+                    <span matListItemLine>
+                        {{data.productieKostenPerUnit}}
+                    </span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>
+                        Openbaar:
+                    </span>
+                    <span matListItemLine>
+                        {{(!data.isPrivate)}}
+                    </span>
+                </mat-list-item>
+            </mat-list>   
+        </div>
+    </div>
+</mat-dialog-content>

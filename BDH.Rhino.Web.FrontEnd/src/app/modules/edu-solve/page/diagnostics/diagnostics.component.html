@@ -1,0 +1,18 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>Diagnostics</mat-expansion-panel-header>
+    
+    <h5>Gebruikte seed : {{this.usedSeed}}</h5>
+    <h5>Totaal Oppervlakte : {{this.totalGFA}}</h5>
+    <h5>Totaal Footprint : {{this.totalFootprint}}</h5>
+    <h5>Totaal Geveloppervlak : {{this.totalFacadeArea}}</h5>
+
+    <div *ngIf="this.auth.isAuthenticated$ | async">
+
+        <button mat-stroked-button color="accent" [disabled]="!usedSeed || !projectActive"  (click)="newVersion()">
+            Configuratie opslaan
+        </button>
+    </div>
+    
+
+    
+</mat-expansion-panel>

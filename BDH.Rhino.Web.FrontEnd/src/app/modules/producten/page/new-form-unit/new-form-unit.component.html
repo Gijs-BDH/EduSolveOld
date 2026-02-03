@@ -1,0 +1,74 @@
+<mat-dialog-content>
+    <h2>Bouwconcept Viewer</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field style="width:100%">
+            <mat-label>
+                Name:
+            </mat-label>
+            <input matInput formControlName="name" type="text">
+        </mat-form-field>
+
+        <mat-form-field style="width:100%" appearance="fill">
+            <mat-label>Catalogus</mat-label>
+            <mat-select formControlName="catalog">
+                <mat-option *ngFor="let catalog of catalogs$ | async" [value]="catalog.id">
+                    {{catalog.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field style="width:100%">
+            <mat-label>
+                BVO per Unit (m2):
+            </mat-label>
+            <input matInput formControlName="bvoPerUnit" type="number">
+        </mat-form-field>
+
+        <mat-form-field style="width:100%">
+            <mat-label>
+                Volume per Unit (m3):
+            </mat-label>
+            <input matInput formControlName="m3PerUnit" type="number" />
+        </mat-form-field>
+
+        <mat-form-field style="width:100%">
+            <mat-label>
+                M2 Glas per M2 BVO
+            </mat-label>
+            <input matInput formControlName="glazingFactor" type="number" />
+        </mat-form-field>
+
+        <mat-form-field style="width:100%">
+            <mat-label>
+                Woningen per Unit:
+            </mat-label>
+            <input matInput formControlName="woningenPerUnit" type="number" />
+        </mat-form-field>
+
+        <mat-form-field style="width:100%">
+            <mat-label>
+                Productieprijs per Unit:
+            </mat-label>
+            <input matInput formControlName="productieKostenPerUnit" type="number" />
+        </mat-form-field>
+
+        <mat-checkbox formControlName="openbaar" style="display: block" type="number">
+            Is Openbaar:
+        </mat-checkbox>
+
+
+        <input hidden type="file" placeholder="Choose file" #file (change)="assignGeometry(file.files)" />
+
+        <button type='button' mat-raised-button style="display: block" (click)="file.click()">
+            Upload geometrie
+        </button>
+        <h5>{{fileName ?? "Nog geen bestand gekozen."}}</h5>
+
+        <button mat-raised-button type="submit">
+            Update
+        </button>
+
+
+    </form>
+</mat-dialog-content>

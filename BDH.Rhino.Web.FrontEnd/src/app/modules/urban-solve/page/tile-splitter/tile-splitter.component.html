@@ -1,0 +1,24 @@
+<mat-expansion-panel *ngIf="shell.selectedWay" [expanded]="shell.selectedWay">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Geselecteerde knipper
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div *ngIf="shell.selectedWay else notile" style="width:400px">
+
+
+        <mat-form-field class="form-field-default">
+            <mat-label>Breedte:</mat-label>
+            <input matInput style="display:block" type="number" [(ngModel)]="shell.selectedWay!.diameter" (ngModelChange)="this.change()" />
+        </mat-form-field>`
+        <button mat-button color="warn" (click)="remove()" >Verwijder</button>
+    </div>
+
+
+
+</mat-expansion-panel>
+
+<ng-template #notile>
+    <p>Er is geen knipper geselecteerd</p>
+</ng-template>

@@ -1,0 +1,65 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        Genereer Invulling Voor Catalogus
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Catalogus</mat-label>
+        <mat-select 
+            [(ngModel)]="this.tile.properties.catalog"
+            [compareWith]="compareWith">
+            <mat-option *ngFor="let catalogus of catalogus$ | async" [value]="catalogus">
+                {{catalogus.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Ruimte rond gebouw</mat-label>
+        <input matInput type="number" [(ngModel)]="this.tile.properties.safeMargin">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Ruimte rond gebied</mat-label>
+        <input matInput type="number" [(ngModel)]="this.tile.properties.deflation">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Minimale gebouw lengte</mat-label>
+        <input matInput type="number" [(ngModel)]="this.tile.properties.minimumLineLength">
+    </mat-form-field>
+   
+
+    <mat-slide-toggle [(ngModel)]="useSeed" style="display:block">
+        Use Seed
+    </mat-slide-toggle>
+
+    <mat-form-field *ngIf="useSeed" style="display:block">
+        <mat-label>Seed:</mat-label>
+        <input matInput type="number" [(ngModel)]="this.tile.properties.seed" />
+    </mat-form-field>
+
+    <button type="button" mat-raised-button color="accent" (click)="generateContentCatalog()" [disabled]="loading$ | async">
+        <i class="fa-solid fa-trowel-bricks"></i> SOLVE
+    </button>
+
+    <button type="button" mat-raised-button  (click)="solveAgain()" [disabled]="loading$ | async">
+        <i class="fa-solid fa-trowel-bricks"></i> SOLVE AGAIN
+    </button>
+
+    <button type="button" mat-raised-button (click)="solveBulk()" [disabled]="loading$ | async">
+        <i class="fa-solid fa-trowel-bricks"></i> SOLVE BULK
+    </button>
+
+    <mat-spinner *ngIf="(loading$ | async) else chart" [diameter]="25"/>
+</mat-expansion-panel>
+
+<ng-template #chart>
+  
+    <div *ngIf="(results$ | async)?.length as number">
+        {{number}} resultaten gevonden.
+        <button mat-raised-button color="warn" (click)="cleanup()">Clean</button>
+        <button mat-raised-button (click)="explore()">Ontdek</button>
+    </div>
+
+</ng-template>

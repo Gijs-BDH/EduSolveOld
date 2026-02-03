@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BDH.Rhino.Web.API.Domain\BDH.Rhino.Web.API.Domain.csproj" />
+    <ProjectReference Include="..\BDH.Rhino.Web.API\BDH.Rhino.Web.API.csproj" />
+  </ItemGroup>
+
+</Project>

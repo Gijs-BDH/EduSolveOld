@@ -1,0 +1,171 @@
+<mat-dialog-content>
+    <h2>Basis inkomsten project</h2>
+
+    <mat-accordion [multi]="true">
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Verdeling bebouwing sociaal / vrije sector</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Typologie</th>
+                            <th>Woningen</th>
+                            <th>Sociaal (%)</th>
+                            <th>Aantal vrij</th>
+                            <th>Aantal sociaal</th>
+                        </tr>
+                    </thead>
+
+                    <tbody *ngIf="rapport.builtTypes.length">
+                        <tr>
+                            <td colspan="9">Algemene bouw typologieen: </td>
+                        </tr>
+                        <tr *ngFor="let typology of rapport.builtTypes">
+                            <td>{{typology.typologyName}}</td>
+                            <td>{{typology.totalLivings}}</td>
+                            <td><input type="number" [(ngModel)]="typology.percentSocial"> </td>
+                            <td>{{typology.builtFreeLivings}}</td>
+                            <td>{{typology.builtSocial}}</td>
+                        </tr>
+                        <tr>
+                            <td>Som: </td>
+                            <td>{{rapport.calculateTotalNumberOfLivings}}</td>
+                            <td></td>
+                            <td>{{rapport.calculateTotalNumberOfPublicLivings}}</td>
+                            <td>{{rapport.calculateTotalNumberOfSocialLivings}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Inkomsten vrije sector</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Typologie</th>
+                            <th>Aantal</th>
+                            <th>Prijs / woning</th>
+                            <th>Prijs totaal</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="9">Vrije woningen: </td>
+                        </tr>
+                        <tr *ngFor="let typology of rapport.builtTypes">
+                            <td>{{typology.typologyName}}</td>
+                            <td>{{typology.builtFreeLivings}}</td>
+                            <td><input type="number" [(ngModel)]="typology.grossIncomePerUnit"></td>
+                            <td>{{rapport.calculateGrossIncomeForTypology(typology)}}</td>
+                        </tr>
+                        <tr>
+                            <td>Som: </td>
+                            <td>{{rapport.calculateTotalSoldFreeUnits}}</td>
+                            <td></td>
+                            <td>{{rapport.calculateTotalGrossIncomeFreeUnits}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Inkomsten sociale sector</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Typologie</th>
+                            <th>Aantal</th>
+                            <th>Prijs / woning</th>
+                            <th>Prijs totaal</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="9">Algemene bouw typologieen: </td>
+                        </tr>
+                        <tr *ngFor="let typology of rapport.builtTypes">
+                            <td>{{typology.typologyName}}</td>
+                            <td>{{typology.builtSocial}}</td>
+                            <td>{{typology.maxGrossIncomeSocial}}</td>
+                            <td>{{rapport.calculateGrossIncomeForTypologySocial(typology)}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Som: </td>
+                            <td>{{rapport.calculateTotalSoldSocialUnits}}</td>
+                            <td></td>
+                            <td>{{rapport.calculateTotalGrossIncomeSocialUnits}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+                <h3>Residuele grondwaarde</h3>
+            </mat-expansion-panel-header>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Uitgaven bouwkosten</th>
+                            <th>Inkomsten vrij</th>
+                            <th>Inkomsten sociaal</th>
+                            <th>Winstmarge</th>
+                            <th>Residuele grondwaarde</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>{{rapport.totalExpenses}}</td>
+                            <td>{{rapport.calculateTotalGrossIncomeFreeUnits}}</td>
+                            <td>{{rapport.calculateTotalGrossIncomeSocialUnits}}</td>
+                            <td><input type="number" [(ngModel)]="rapport.winstmarge"></td>
+                            <td>{{rapport.calculateResidueleGrondwaarde}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive p-0">
+                <table class="table table-bordered text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Totale waarde</th>
+                            <th>Oppervlakte project</th>
+                            <th>Residuele grondwaarde</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>{{rapport.calculateResidueleGrondwaarde}}</td>
+                            <td>{{rapport.area}} m2</td>
+                            <td>{{rapport.calculateGrondwaardePerM}} /m2</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+    <div class="modal-footer">
+      <button mat-button (click)="close()">Cancel</button>
+      <button mat-button (click)="save()">Save</button>
+    </div>
+</mat-dialog-content>

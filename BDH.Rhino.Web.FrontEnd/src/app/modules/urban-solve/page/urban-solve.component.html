@@ -1,0 +1,34 @@
+<div style="pointer-events: all;">
+    
+    <div style="position: absolute; left: 10px; top: 50px;; min-width:300px; z-index: 30;">
+        <button mat-raised-button class="button-default" (click)="focus()" [disabled]="!this.data.projectInformation">Zoom project</button>
+
+        <app-bouwkosten *ngIf="this.data.projectInformation">
+        </app-bouwkosten>
+    </div>
+    
+    <div style="position: absolute; left: 10px; bottom:100px; z-index: 32; min-width:300px" *ngIf="this.projectIsActive">
+        <mat-accordion >
+            <app-tileproperties></app-tileproperties>
+            <app-tile-splitter></app-tile-splitter>
+            <app-generic-mass-component></app-generic-mass-component>
+    
+            <button mat-raised-button (click)="this.addTileSplitter()">
+                + Knipper
+            </button>
+            <button mat-raised-button (click)="this.addMass()" >
+                + Massa
+            </button>
+            <app-catalog-painter></app-catalog-painter>
+            <app-export></app-export>
+        </mat-accordion>
+        
+    </div>
+    
+    
+    <div style="position: absolute; right: 10px; bottom:100px; min-width:300px; z-index: 33;">
+        <app-persistance>
+        </app-persistance>
+       
+    </div>
+</div>

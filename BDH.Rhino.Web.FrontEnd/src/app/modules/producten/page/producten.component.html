@@ -1,0 +1,61 @@
+<div class="container" >
+
+    <h1>
+        Mijn Bouwconcepten
+    </h1>
+    <h2>Eigendom van {{activeCompany$ | async}}</h2>
+    <p>
+        Hier onder vind u uw bouwconcepten.
+        Bouwconcepten zijn onderverdeeld in catalogussen. 
+        Een catalogus dus als het ware een collectie aan alleenstaande elementen die samen een bouwconcept vormen. 
+        Elementen van bouwconcepten kunnen dus niet worden gemengd.
+        Heeft u een bouwconcept wat bestaat uit één element? Dan kunt u een catalogus aanmaken voor dat ene element.
+        U kunt de geldige configuraties van een bouwconcept catalogus definieren met de 'concept-solve' tool.
+    </p>
+
+    <div *ngIf="(catalogs$ | async)?.length == 0">
+        <p>Het lijkt erop dat uw organisatie nog geen bouwconcepten heeft geupload. Begin met het aanmaken van een catalogus met de knop hier beneden.</p>
+    </div>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let catalog of (catalogs$ | async)">
+            <mat-expansion-panel-header class="right-aligned-header">
+                <mat-panel-title>
+                    {{catalog.name}}
+                </mat-panel-title>
+               
+                <mat-panel-description>
+                    <button mat-icon-button (click)="configure(catalog, $event)"><mat-icon>view_quilt</mat-icon></button>
+                    <button mat-icon-button color="warn" (click)="removeCatalog(catalog, $event)"><mat-icon>delete_forever</mat-icon></button>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-expansion-panel *ngFor="let product of catalog.buildingConcepts">
+                <mat-expansion-panel-header  class="right-aligned-header"> 
+                    <mat-panel-title>
+                        {{product.name}}
+                    </mat-panel-title> 
+
+                    <mat-panel-description>
+                        <button mat-icon-button (click)="togglePublic(product, $event)">
+                            <mat-icon>{{product.isPrivate ? 'panorama_fish_eye' : 'visibility'}} </mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="editUnit(product, catalog, $event)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="remove(product, $event)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-panel-description>
+                  
+                </mat-expansion-panel-header>
+
+            </mat-expansion-panel>
+
+            <button mat-raised-button (click)="newConceptUnit(catalog.id)">Voeg nieuw concept toe</button>
+
+        </mat-expansion-panel>
+
+        <button mat-raised-button (click)="newCatalog()">Nieuwe catalogus</button>
+    </mat-accordion>
+  
+</div>

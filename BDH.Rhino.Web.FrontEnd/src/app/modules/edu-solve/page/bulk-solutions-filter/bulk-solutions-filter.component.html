@@ -1,0 +1,69 @@
+<mat-dialog-content>
+    <!-- <plotly-plot (update)="update($event)" (plotlyClick)="click($event)" [data]="graph.data" [layout]="graph.layout" ></plotly-plot> -->
+
+    <!--height is set to'60vh'
+        the chart needs a set height;-->
+    <div id="example" class="parcoords" style="width:100%;height:300px;"></div>
+
+    <h1>
+        Filter Resultaten
+    </h1>
+
+    <div class="mat-elevation-z8" style="width:100%;">
+        <table mat-table [dataSource]="dataSource" matSort >
+
+            <ng-container matColumnDef="seed">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> SEED </th>
+                <td mat-cell *matCellDef="let row"> {{row.seed}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apply">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let row"> <button mat-icon-button
+                        (click)="click(row)"><mat-icon>arrow_downward</mat-icon></button> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="footprint">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Footprint </th>
+                <td mat-cell *matCellDef="let row"> {{row.footprint.toFixed(2)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="gevel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Geveloppervlak </th>
+                <td mat-cell *matCellDef="let row"> {{row.gevel.toFixed(2)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="corners">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Hoeken </th>
+                <td mat-cell *matCellDef="let row"> {{row.corners}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="height">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Verdiepingen </th>
+                <td mat-cell *matCellDef="let row"> {{row.height}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bboxArea">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> BBOX Area </th>
+                <td mat-cell *matCellDef="let row"> {{row.bboxArea.toFixed(2)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bboxRatio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> BBOX Ratio </th>
+                <td mat-cell *matCellDef="let row"> {{row.bboxRatio.toFixed(2)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="deltaFootprint">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> BBox Area - footprint </th>
+                <td mat-cell *matCellDef="let row"> {{row.deltaFootprint.toFixed(2)}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+</mat-dialog-content>

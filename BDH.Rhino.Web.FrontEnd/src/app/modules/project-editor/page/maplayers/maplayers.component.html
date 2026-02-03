@@ -1,0 +1,12 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-icon>layers</mat-icon>Kaart lagen
+    </mat-expansion-panel-header>
+    <button mat-raised-button 
+        *ngFor="let layer of layers" 
+        style="display: block; width:100%" 
+        [color]="layerIsActive(layer) ? 'accent' : ''"
+        (click)="setLayer(layer)">
+            {{layer.name}}
+    </button>
+</mat-expansion-panel>

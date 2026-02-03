@@ -1,0 +1,28 @@
+<div [class]="currentActiveTheme$ | async">
+    <div class="mat-app-background">
+        <mat-toolbar class="mat-elevation-z8" color="primary">
+            <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+                <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+                <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+            </button>
+
+            <div style="width: 100%;">
+                <app-header></app-header>
+            </div>  
+        </mat-toolbar>
+
+        <mat-sidenav-container autosize>
+            <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+                <app-nav></app-nav>
+            </mat-sidenav>
+
+            <mat-sidenav-content>
+            
+                <router-outlet>
+                    
+                </router-outlet>
+
+            </mat-sidenav-content>
+        </mat-sidenav-container> 
+    </div>
+  </div>

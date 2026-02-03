@@ -1,0 +1,13 @@
+<button mat-raised-button (click)="increase()">++</button>
+<button mat-raised-button (click)="decrease()">--</button>
+
+<mat-grid-list cols="{{shapeWidth}}" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let cell of shape.values" [style.background]="getColor(cell.value)">
+        <button mat-icon-button (click)="cell.toggle()">
+            <mat-icon>{{cell.value ? "done" : "panorama_fish_eye"}}</mat-icon>
+        </button>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<button mat-raised-button (click)="save()">Save</button>
+

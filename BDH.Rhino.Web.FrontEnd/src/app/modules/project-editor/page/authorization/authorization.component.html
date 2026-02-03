@@ -1,0 +1,26 @@
+
+<div *ngIf="block">
+    <div class="blocker">
+    
+    </div>
+    
+    <div class="auth-card">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    Welkom!
+                </mat-card-title>
+                <mat-card-subtitle>
+                    U bent niet ingelogd.
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+                <button type="button" mat-raised-button color="primary" (click)="enter()">Inloggen</button>
+                <button type="button" mat-stroked-button color="primary" (click)="continueAsGuest()">Doorgaan als gast</button>
+            </mat-card-actions>
+    
+        </mat-card>
+    </div>
+    
+    
+</div>

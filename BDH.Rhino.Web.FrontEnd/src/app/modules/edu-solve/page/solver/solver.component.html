@@ -1,0 +1,28 @@
+<mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+        Solver
+    </mat-expansion-panel-header>
+
+    <mat-slide-toggle [(ngModel)]="data.useSeed">
+        Use Seed
+    </mat-slide-toggle>
+
+    <mat-form-field *ngIf="data.useSeed" style="display:block">
+        <mat-label>Seed:</mat-label>
+        <input matInput type="number" [(ngModel)]="data.seed"/>
+    </mat-form-field>
+
+    <mat-slide-toggle [(ngModel)]="data.allowDisconnected">
+        Losgekoppeld toestaan
+    </mat-slide-toggle>
+    
+    <br>
+
+    <button mat-raised-button color="accent" [disabled]="!canSolve" (click)="solve()" style="width:50%">SOLVE</button>
+    <button mat-raised-button [disabled]="!canSolve || (bulkService.loading$ | async)" (click)="solveBulk()" style="width:50%">SOLVE BULK</button>
+
+    <app-bulk-solutions ></app-bulk-solutions>
+
+</mat-expansion-panel>
+

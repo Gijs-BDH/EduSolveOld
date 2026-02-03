@@ -1,0 +1,74 @@
+
+<mat-card *ngIf="auth.isAuthenticated$ | async">
+    <mat-card-header>
+        <mat-card-title>
+            Projecten
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div >
+            <mat-expansion-panel [(expanded)]="expanded"  style="min-width:350px; max-height: 70vh;">
+                <mat-expansion-panel-header>
+                    Opgeslagen Projecten
+                </mat-expansion-panel-header>
+                <div *ngIf="expanded">
+                    <mat-card *ngFor="let project of (persistence.projects$ | async)" >
+            
+                        <mat-card-header>
+                            <mat-card-title>
+                                {{this.activeProject?.id == project.id ? (project.name + " [ACTIEF]") : project.name}}
+                            </mat-card-title>
+                            <span class="example-spacer"></span>
+                
+                            <div style="margin-bottom: 12px; margin-top: -4px;">
+                                <button *ngIf="!this.projectIsActive(project)" mat-icon-button (click)="this.activate(project)">
+                                    <mat-icon>cloud_download</mat-icon>
+                                </button>
+                    
+                                <button *ngIf="this.projectIsActive(project)" color="warn" mat-icon-button (click)="deleteProject(project)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                
+                
+                        </mat-card-header>
+                        <mat-card-content *ngIf="expanded && this.projectIsActive(project)" >
+                            <div style="width:100%" *ngFor="let version of project.versies">
+                                <button mat-button (click)="load(version)" style="width:50%" [disabled]="!this.projectIsActive(project)">
+                                    {{version.name}}
+                                </button>   
+                                <button mat-button (click)="deleteVersion(project, version)" style="width:25%" [disabled]="!this.projectIsActive(project)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>   
+                            </div>
+                            
+                            <h5 *ngIf="!project.versies?.length">Nog geen versies aangemaakt...</h5>
+                
+                            
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                
+            </mat-expansion-panel>
+            
+            
+            <button mat-stroked-button color="accent" style="width:100%" (click)="newProject()">
+                <mat-icon>add</mat-icon>Nieuw project
+            </button>
+            
+            <button mat-stroked-button color="accent" [disabled]="!shell.projectActive" style="width:100%" (click)="saveAsProject()">
+                <mat-icon>save</mat-icon>Opslaan als....
+            </button>
+            
+        </div>
+    </mat-card-content>
+   
+
+    
+</mat-card>
+
+
+<button mat-raised-button color="accent" style="width:100%" (click)="newSketch()">
+    <mat-icon>create</mat-icon>Nieuw schetsontwerp
+</button>

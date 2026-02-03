@@ -1,0 +1,35 @@
+
+<div style="width:100vw; height:calc(100vh - 65px); position:absolute; left:0; bottom:0;">
+    <div id="project-editor-canvas" style="width:100%; height: 100%; ">
+    </div>
+
+    <div style="position: absolute; right: 10px; top: 50px;; min-width:300px; z-index: 29;">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Viewer functies</mat-card-title>
+            </mat-card-header>
+            <mat-card-content style="display:block">
+                <mat-slide-toggle [(ngModel)]="threeD" style="margin: 20px;">
+                    3D Omgeving
+                </mat-slide-toggle>
+                <app-maplayers></app-maplayers>
+                <button mat-raised-button class="button-default" (click)="hideSelected()"><mat-icon>panorama_fish_eye</mat-icon>Verberg geselecteerde</button>
+                <button mat-raised-button class="button-default" (click)="unhideSelected()"><mat-icon>remove_red_eye</mat-icon>Toon geselecteerde</button>
+                <button mat-raised-button class="button-default" (click)="hideShow()"><mat-icon>radio_button_checked</mat-icon>Verberg/toon tijdelijk</button>
+                <button mat-raised-button class="button-default" (click)="measure()"><mat-icon>straighten</mat-icon>Lineaal</button>
+                <p *ngIf="ruler.isDrawing">{{ruler.distances | json}}</p>
+                <button mat-raised-button class="button-default" color="{{bulldozer.bullDozing ? 'accent' : ''}}" (click)="bulldoze()"><mat-icon>gps_off</mat-icon>Bulldozer</button>
+            </mat-card-content>               
+        </mat-card>
+    </div>
+
+    <div style="width:100%; height:100%; position:absolute; left:0; bottom:0; pointer-events: none;">
+        <router-outlet></router-outlet>
+    </div>
+
+    <a href="https://docs.3dbag.nl/en/copyright" target="_blank" style="position:absolute; right:0; bottom:0; background: white;">© 3D BAG by tudelft3d and 3DGI</a>
+</div>
+
+
+
+<app-authorization></app-authorization>

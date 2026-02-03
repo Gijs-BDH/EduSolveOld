@@ -1,0 +1,97 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-2">
+            <mat-icon style="font-size: 120px; width:200px; height:100px">store</mat-icon>
+        </div>
+        
+        <div class="col-10">
+            <h1>Bouwconcpten Boulevard</h1>
+            <h5>{{concepten.length}} producten in database</h5>
+            <h3>{{filteredConcepten.length}} producten getoond</h3>
+        </div>
+    </div>
+    
+    <mat-grid-list  cols="4" rowHeight="300px" gutterSize="10px">
+        <mat-grid-tile rowspan="2" >
+
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        Filters
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <div *ngFor="let filter of boolFilters">
+                        <mat-checkbox [(ngModel)]="filter.enabled"
+                            [labelPosition]="'after'">
+                            {{filter.name}}
+                        </mat-checkbox>
+                    </div>
+
+                    <mat-divider></mat-divider>
+
+                    <div *ngFor="let filter of valueFilters">
+                        <mat-slide-toggle type="checkbox" [(ngModel)]="filter.enabled">
+                            
+                        </mat-slide-toggle>
+                        <mat-label>{{filter.name}}</mat-label>
+                        <mat-label>{{filter.value}}</mat-label>
+                        <mat-slider 
+                            [disabled]="!filter.enabled"
+                            [min]="filter.minVal"
+                            [max]="filter.maxVal">
+                            <input matSliderThumb [(ngModel)]="filter.value"/>
+                        </mat-slider>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+           
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        Sorteer op:
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-selection-list #shoes [multiple]="false" [(ngModel)]="selectedSort" style="width:100%;">
+                        <mat-list-option *ngFor="let sort of sortOptions" [value]="sort">
+                          {{sort}}
+                        </mat-list-option>
+                      </mat-selection-list>
+                </mat-card-content>
+            </mat-card>
+           
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngFor="let tile of sortedConcepten" >
+            <mat-card >
+                <mat-card-header>
+                    <mat-card-title>
+                        {{tile.name}}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{tile.company}}
+                    </mat-card-subtitle>
+                    <h2></h2>
+                </mat-card-header>
+                <mat-card-content style="background-color: gray; height:200px">
+                     
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-icon-button type="button" (click)="toggleIsFavorite(tile)">
+                        <mat-icon>{{tile.isFavorited ? "favorite" : "favorite_border"}}</mat-icon>
+                    </button>
+                    <button mat-stroked-button extended color="primary" (click)="show(tile)"> 
+                        <mat-icon>info</mat-icon>
+                        Details
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>    
+</div>

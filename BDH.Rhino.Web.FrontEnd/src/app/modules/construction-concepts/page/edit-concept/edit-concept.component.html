@@ -1,0 +1,24 @@
+<div class="container">
+    <form *ngIf="component$ | async; else loading" [formGroup]="form" (ngSubmit)="save()">
+
+        <mat-form-field>
+            <label for="name">Concept Name</label>
+            <input matInput id="name" formControlName="name" />
+        </mat-form-field>
+        <mat-form-field>
+            <label for="spanLength">Overspannings lengte</label>
+            <input matInput type="number" id="spanLength" formControlName="spanLength" />
+        </mat-form-field>
+        <mat-form-field>
+            <label for="spanWidth">Overspannings breedte</label>
+            <input matInput type="number" id="spanWidth" formControlName="spanWidth" />
+        </mat-form-field>
+    
+    
+        <button mat-raised-button [disabled]="!form.valid">Save</button>
+    </form>
+    
+    <ng-template #loading>
+        Loading User...
+    </ng-template>
+</div>

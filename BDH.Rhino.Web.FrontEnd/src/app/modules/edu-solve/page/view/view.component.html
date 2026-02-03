@@ -1,0 +1,34 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        View
+    </mat-expansion-panel-header>
+
+    <mat-accordion>
+
+        <mat-slide-toggle [(ngModel)]="this.polygon">
+            Project Polygon
+        </mat-slide-toggle>
+
+        <mat-slide-toggle [(ngModel)]="this.gridProgramma">
+            Grid Programma
+        </mat-slide-toggle>
+
+        <mat-slide-toggle [(ngModel)]="this.gridConcept">
+            Grid Bouwconcept
+        </mat-slide-toggle>
+
+        <mat-slide-toggle [(ngModel)]="this.transparant">
+            Transparant
+        </mat-slide-toggle>
+
+        <mat-slide-toggle [(ngModel)]="this.clusters">
+            Clusters
+        </mat-slide-toggle>
+
+        <mat-slide-toggle [(ngModel)]="this.construction">
+            Constructie
+        </mat-slide-toggle>
+
+    </mat-accordion>
+
+</mat-expansion-panel>
